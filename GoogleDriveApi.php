@@ -71,6 +71,8 @@ class GoogleDriveApi {
 
     // File upload into google drive
     function fileUploadInoGoogleDrive($client,$fileName=''){
+        ini_set('memory_limit','-1');
+        set_time_limit('0');
         $service = new Google_Service_Drive($client);
         try
         {
@@ -92,7 +94,7 @@ class GoogleDriveApi {
                 $file->setMimeType('application/octet-stream');
 
                 $backup_root_dir = $this->getBackupPath();
-                $backupFile = $backup_root_dir . '\\'.$fileName;
+                $backupFile = $backup_root_dir . '/'.$fileName;
 
                 $data = file_get_contents($backupFile);
                 $createdFile = $service->files->create($file, array(
